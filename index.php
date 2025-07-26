@@ -119,7 +119,7 @@
   </style>
 </head>
 <body>
-     <center style="color: black; font-size: 3rem; font-family: 'sacramento';">Welcome to anonymous messages🕺</center>
+     <center style="color: black; font-size: 3rem; font-family: 'sacramento';">Welcome to anonymous message🕺</center>
   <div class="form-container">
     <h2>Create Account</h2>
     <form id="form">
