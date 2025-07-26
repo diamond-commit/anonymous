@@ -1,10 +1,12 @@
 <?php 
+  include "dbjson.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 require 'PHPMailer/Exception.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["success" => false, "message" => "Go to the login page"]);
@@ -15,13 +17,6 @@ $email = $_POST["email"];
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(["success" => false, "message" => "Input valid email"]);
-    exit;
-}
-
-$conn = new mysqli("localhost", "root", "", "anon_project");
-
-if ($conn->connect_error) {
-    echo json_encode(["success" => false, "message" => "Connection with DB failed"]);
     exit;
 }
 

@@ -1,4 +1,6 @@
 <?php 
+include "dbjson.php";
+   
     if(!$_SERVER["REQUEST_METHOD"]=== "POST"){
         echo "where u from gng";
         exit;

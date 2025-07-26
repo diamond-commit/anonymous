@@ -1,13 +1,11 @@
 <?php 
+   include "db.php";
   session_start();
   if (!isset($_SESSION["id"])) {
     header("Location: login.php");
 }
   $user_id = $_SESSION["id"];
-   $conn = new mysqli("localhost", "root", "", "anon_project");
-   if($conn->connect_error){
-     die("connection with db failed");
-   }
+  
    $nameSql = "SELECT name FROM users WHERE id = ?";
 $nameStmt = $conn->prepare($nameSql);
 if(!$nameStmt){

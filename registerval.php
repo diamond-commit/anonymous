@@ -1,4 +1,5 @@
 <?php 
+ include "dbjson.php";
   if($_SERVER["REQUEST_METHOD"]!== "POST"){
      echo json_encode(["success"=> false, "message"=> "Go register properly"]);
   }
@@ -19,11 +20,7 @@
    echo json_encode(["success"=> false, "message"=> "input correct email format"]);
    exit;
     }
-  $conn = new mysqli("localhost", "root", "","anon_project");
-     if($conn->connect_error){
-    echo json_encode(["success"=> false, "message" => "connection with db failed"]);
-        exit;
-     }
+
      // check if email has been used before
      $sql1 = "SELECT id FROM users WHERE email = ?";
      $stmt1 = $conn->prepare($sql1);

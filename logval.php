@@ -1,4 +1,5 @@
 <?php 
+ include "dbjson.php";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -15,12 +16,6 @@ if (empty($email) || empty($password)) {
     exit;
 }
 
-$conn = new mysqli("localhost", "root", "", "anon_project");
-
-if ($conn->connect_error) {
-    echo json_encode(["success" => false, "message" => "Connection with DB failed"]);
-    exit;
-}
 
 $sql = "SELECT id, password FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);

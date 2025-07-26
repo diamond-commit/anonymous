@@ -1,8 +1,9 @@
 <?php
+ include "db.php";
 $token = $_GET['token'] ?? null;
 
 if (!$token && $_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(["success" => false, "message" => "Token is missing"]);
+    echo "Token is missing";
     exit;
 }
 
@@ -12,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['token'] ?? '';
 
     if ($newPass !== $confirmPass) {
-        echo json_encode(["success" => false, "message" => "Passwords do not match"]);
+        echo  "Passwords do not match";
         exit;
     }
 
     $conn = new mysqli("localhost", "root", "", "anon_project");
     if ($conn->connect_error) {
-        echo json_encode(["success" => false, "message" => "Connection failed"]);
+        echo  "Connection failed";
         exit;
     }
 
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
-        echo json_encode(["success" => false, "message" => "Invalid token"]);
+        echo  => "Invalid token";
         exit;
     }
 
@@ -62,12 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $delete->execute();
 
         echo  "Password updated successfully";
-        
-        
     } else {
         echo  "Failed to update password";
     }
-
     exit;
 }
 ?>
@@ -93,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       min-height: 100vh;
       margin: 0;
     }
-
     .form-container {
       background: #fff;
       padding: 30px 25px;

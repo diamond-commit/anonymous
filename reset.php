@@ -1,4 +1,5 @@
 <?php 
+ include "db.php";
    if($_SERVER["REQUEST_METHOD"]!== "GET"){
     echo "Try again";
     exit;
@@ -8,11 +9,7 @@
      exit;
    }
    $token = $_GET["token"];
-       $conn = new mysqli("localhost", "root", "", "anon_project");
-    if ($conn->connect_error) {
-    echo  "Connection with DB failed";
-    exit;
-   }
+       
 
    $sql = "SELECT email, expire FROM reset WHERE token =?";
    $stmt = $conn->prepare($sql);

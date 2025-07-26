@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json");
+   include "dbjson.php";
 session_start();
 
 if (!isset($_SESSION["id"])) {
@@ -15,12 +15,7 @@ if (!isset($_GET["id"])) {
 $message_id = $_GET["id"];
 $user_id = $_SESSION["id"];
 
-$conn = new mysqli("localhost", "root", "", "anon_project");
 
-if ($conn->connect_error) {
-    echo json_encode(["status" => "error", "message" => "DB connection failed"]);
-    exit;
-}
 
 // Optional: check if message belongs to this user before deleting
 $sql = "DELETE FROM inbox WHERE id = ? AND user_id = ?";
