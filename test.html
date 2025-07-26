@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f3f3f3;
+  padding-bottom: 80px; /* space for button */
+}
+
+header {
+  background-color: #222;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Sacramento', cursive;
+  font-size: 2.5rem;
+}
+
+.messages-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  max-height: 4.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.message-card p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.share-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 24px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.share-btn:hover {
+  background-color: #444;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome back, Diamond 🥷🏼</h1>
+  </header>
+
+  <main class="messages-container">
+    <div class="message-card">
+      <p>This is a short anonymous message. Not bad...</p>
+    </div>
+    <div class="message-card">
+      <p>Bro I just wanted to say you're actually him frfr. You inspire me everyday...</p>
+    </div>
+    <div class="message-card">
+      <p>I don’t know who you are but I’m glad I came across your link. Keep going no matter what...</p>
+    </div>
+    <!-- More messages -->
+  </main>
+ <input type="hidden" value="" id="link">
+  <button class="share-btn"> copy link </button>
+</body>
+</html>
