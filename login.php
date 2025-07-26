@@ -145,7 +145,7 @@ button:hover {
       </div>
 
       <button >Login</button>
-      <p class="redirect">Don't have an account? <a href="register.php">Register</a></p>
+      <p class="redirect">Don't have an account? <a href="index.php">Register</a></p>
     </form>
   </div>
    <div id="loader" style="display: none;">
