@@ -18,8 +18,11 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      
     }
-
+   html, body {
+  overflow-x: hidden;
+}
     .title {
       text-align: center;
       font-size: 3rem;
