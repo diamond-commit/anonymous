@@ -35,13 +35,14 @@
     }
 
     .main-btn-container button {
-      padding: 15px 30px;
+      padding: 18px 35px;
       background-color: #631D76;
       color: white;
       border: none;
       border-radius: 6px;
       font-size: 1.1rem;
       cursor: pointer;
+      margin-top: 6rem
     }
 
     .main-btn-container button:hover {
@@ -65,8 +66,8 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 500px;
+      width: 70%;
+      
       text-align: center;
     }
 
@@ -122,7 +123,7 @@
   </style>
 </head>
 <body>
-  <div class="title">Welcome to anonymous message 🕺</div>
+  <div class="title" style="margin-top: 5rem">Welcome to anonymous message 🕺</div>
 
   <div class="main-btn-container">
     <button onclick="document.getElementById('overlay').style.display = 'flex'">
