@@ -1,7 +1,7 @@
 <?php
 $host = 'db.pxxl.pro'; // or 127.0.0.1
 $db   = 'db_60f15c91';
-$user = 'db_60f15c91';
+$user = 'user_1c8dc49b';
 $pass = 'e37313a8feb1ce82901db17c38f6e2c1'; // replace this with your actual password
 $port = '10953'; // default PostgreSQL port
 
