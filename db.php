@@ -1,9 +1,9 @@
 <?php
-$host = 'localhost'; // or 127.0.0.1
-$db   = 'anon_project';
-$user = 'postgres';
-$pass = 'yingyang'; // replace this with your actual password
-$port = '5432'; // default PostgreSQL port
+$host = 'db.pxxl.pro'; // or 127.0.0.1
+$db   = 'db_60f15c91';
+$user = 'db_60f15c91';
+$pass = 'e37313a8feb1ce82901db17c38f6e2c1'; // replace this with your actual password
+$port = '10953'; // default PostgreSQL port
 
 try {
     $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
