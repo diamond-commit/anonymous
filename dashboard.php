@@ -66,7 +66,6 @@ header {
 
 .messages-container {
   padding: 20px;
-  
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -85,7 +84,7 @@ header {
 }
 
 .message-card p {
-  font-size: 15px;
+  font-size: 1.35rem;
   color: #333;
   line-height: 1.4;
   word-wrap: break-word;
@@ -134,12 +133,12 @@ header {
         </div>
     <?php endforeach; ?>
 <?php else: ?>
-    <p style="text-align: center; margin-top: 30px; color: #888; font-size: 1.1rem;">
+    <p style="text-align: center; margin-top: 30px; color: #888; font-size: 1.8rem;">
         No messages yet... 😴
     </p>
 <?php endif; ?>
   </main>
- <input type="hidden" value="https:anonymous.pxxl.click/send.php?id=<?= htmlspecialchars($_SESSION['id']) ?>" id="link">
+ <input type="hidden" value="https://anonymous.pxxl.click/send.php?id=<?= htmlspecialchars($_SESSION['id']) ?>" id="link">
   <button class="share-btn" id="share"> copy link </button>
 </body>
 <script src="dashboard.js"></script>

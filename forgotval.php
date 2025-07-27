@@ -34,33 +34,10 @@ if (!$stmt->execute([$email])) {
 }
 $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$results {
+if (!$results) {
     echo json_encode(["success" => false, "message" => "User does not exist"]);
     exit;
 }
-
-// Cooldown logic: check if recent token already exists
-/*$cooldownsql = "SELECT created_at FROM reset WHERE email = ? ORDER BY created_at DESC LIMIT 1";
-$stmt2 = $conn->prepare($cooldownsql);
-if (!$stmt2) {
-    echo json_encode(["success" => false, "message" => "DB query failed"]);
-    exit;
-}
-$stmt2->bind_param("s", $email);
-if (!$stmt2->execute()) {
-    echo json_encode(["success" => false, "message" => "DB execution failed"]);
-    exit;
-}
-$cooldown = $stmt2->get_result();
- 
-    
-    $cooldownrow = $cooldown->fetch_assoc();
-    $created = strtotime($cooldownrow["created_at"]);
-
-   /* if (time() - $created < 300) { // 300 seconds = 5 minutes
-        echo json_encode(["success" => false, "message" => "Please wait 5 minutes before trying again."]);
-        exit;
-    }*/
 
 
 // All clear: create new reset token
