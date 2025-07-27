@@ -2,6 +2,7 @@
  include "dbjson.php";
   if($_SERVER["REQUEST_METHOD"]!== "POST"){
      echo json_encode(["success"=> false, "message"=> "Go register properly"]);
+     exit;
   }
     
   $name = trim($_POST["name"]);
@@ -28,13 +29,12 @@
     echo json_encode(["success"=> false, "message" => "Failed"]);
         exit;
      }
-     $stmt1->bind_param("s", $email);
-     if(!$stmt1->execute()){
+     if(!$stmt1->execute([$email])){
        echo json_encode(["success"=> false, "message" => "failed"]);
         exit;
      }
-     $results = $stmt1->get_result();
-     if($results->num_rows>0){
+     $results = $stmt1->fetchAll();
+     if(count($results)>0){
             echo json_encode(["success"=> false, "message" => "Email has been registered already, Log in"]);
             exit;
      }
@@ -45,14 +45,13 @@
     echo json_encode(["success"=> false, "message" => "Failed"]);
         exit;
      }
-     $stmt->bind_param("sss", $name, $email, $hashedPassword);
-     if(!$stmt->execute()){
+     if(!$stmt->execute([ $name, $email, $hashedPassword])){
        echo json_encode(["success"=> false, "message" => "failed"]);
         exit;
      }
         echo json_encode(["success"=> true,
                          "message" => "Registeration successful, You can login now",
                           "redirect"=> "login.php"]);
-     $stmt->close();
-     $conn->close();
+        
+     $conn = null;
 ?>

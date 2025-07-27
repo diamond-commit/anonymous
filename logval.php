@@ -25,21 +25,17 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("s", $email);
-
-if (!$stmt->execute()) {
+if (!$stmt->execute([$email])) {
     echo json_encode(["success" => false, "message" => "DB execution failed"]);
     exit;
 }
 
-$results = $stmt->get_result();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($results->num_rows === 0) {
+if (count($user) === 0) {
     echo json_encode(["success" => false, "message" => "User not found. Want to sign up?"]);
     exit;
 }
-
-$user = $results->fetch_assoc();
 
 if (!password_verify($password, $user["password"])) {
     echo json_encode(["success" => false, "message" => "Wrong password"]);

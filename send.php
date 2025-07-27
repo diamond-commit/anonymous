@@ -96,7 +96,7 @@ button:hover {
 
     <center style="font-family: 'sacramento'; font-size: 2rem; margin-top: 1rem">
       Want ur own anonymous link?
-       <a href="register.php">Register here</a>
+       <a href="index.php">Register here</a>
     </center>
    
 
@@ -112,7 +112,7 @@ button:hover {
   })
   async function send(formData) {
      try {
-      let response = await fetch("sent.php",{
+      let response = await fetch("sendval.php",{
         method : "POST",
         body : formData
       })

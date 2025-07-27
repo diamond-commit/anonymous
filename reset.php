@@ -17,17 +17,16 @@
     echo  "DB query failed";
     exit;
    }
-   $stmt->bind_param("s", $token);
-      if (!$stmt->execute()) {
+  
+      if (!$stmt->execute([$token])) {
     echo "DB execution failed";
     exit;
   }
-  $results = $stmt->get_result();
-  if($results->num_rows === 0){
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(count($row) === 0){
     echo "Token does not exist";
     exit;
   }
-  $row = $results->fetch_assoc();
   $expire = $row["expire"];
   if(strtotime($expire) < time()){
     echo "Token is expired";

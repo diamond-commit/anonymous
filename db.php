@@ -1,13 +1,17 @@
 <?php
-$servername = "db.pxxl.pro";
-$port = 14157;
-$username = "user_3f39a3d9";
-$password = "1a9434b2f48f599e042d6bed5994c401";
-$dbname = "db_63978047";
+$host = 'localhost'; // or 127.0.0.1
+$db   = 'anon_project';
+$user = 'postgres';
+$pass = 'yingyang'; // replace this with your actual password
+$port = '5432'; // default PostgreSQL port
 
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
+    // Set error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Optional: set default fetch mode to associative array
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 ?>

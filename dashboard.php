@@ -11,15 +11,14 @@ $nameStmt = $conn->prepare($nameSql);
 if(!$nameStmt){
         die("failedee");
     }
-$nameStmt->bind_param("i", $user_id);
-if(!$nameStmt->execute()){
+if(!$nameStmt->execute([$user_id])){
         die("Failed to execute");
     }
-$nameResult = $nameStmt->get_result();
-if($nameResult->num_rows ==0){
+$nameRow = $nameStmt->fetch(PDO::FETCH_ASSOC);
+if(count($nameRow) ==0){
         die("user not found");
     }
-$nameRow = $nameResult->fetch_assoc(); 
+
  
 $sql = "SELECT inbox.id AS inbox_id, message 
         FROM inbox 
@@ -28,11 +27,10 @@ $sql = "SELECT inbox.id AS inbox_id, message
     if(!$stmt){
         die("failed");
     }
-    $stmt->bind_param("i", $user_id);
-    if(!$stmt->execute()){
+    if(!$stmt->execute([$user_id])){
         die("Failed to execute");
     }
-    $results = $stmt->get_result();
+    $results = $stmt->fetchAll(pdo::FETCH_ASSOC);
 
 
 ?>
@@ -126,22 +124,22 @@ header {
   </header>
     
   <main class="messages-container">
-<?php if ($results->num_rows > 0): ?>
-    <?php while($row = $results->fetch_assoc()): ?>
+<?php if (count($results) > 0): ?>
+    <?php foreach($results as $row): ?>
         <div style="display: flex">
             <div class="message-card">
                 <p><?= htmlspecialchars($row["message"]) ?></p>
             </div>
             <span data-id="<?= htmlspecialchars($row["inbox_id"]) ?>" class="delete">🗑</span>
         </div>
-    <?php endwhile; ?>
+    <?php endforeach; ?>
 <?php else: ?>
     <p style="text-align: center; margin-top: 30px; color: #888; font-size: 1.1rem;">
         No messages yet... 😴
     </p>
 <?php endif; ?>
   </main>
- <input type="hidden" value="http://localhost/anon_project/send.php?id=<?= htmlspecialchars($_SESSION['id']) ?>" id="link">
+ <input type="hidden" value="https:anonymous.pxxl.click/send.php?id=<?= htmlspecialchars($_SESSION['id']) ?>" id="link">
   <button class="share-btn" id="share"> copy link </button>
 </body>
 <script src="dashboard.js"></script>

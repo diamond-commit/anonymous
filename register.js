@@ -35,8 +35,12 @@ console.log("Confirm:", confir.value);
         }
         let data = await response.json()
         if(data.success){
-            console.log(data.message)
-            // window.location.href = data.redirect
+          loader.style.display = "none"
+          alert(data.message)
+            setTimeout(() => {
+              window.location.href = data.redirect
+            }, 3000);
+             
         }else{
             loader.style.display = "none"
           errorbox.textContent = data.message

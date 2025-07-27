@@ -17,12 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $conn = new mysqli("localhost", "root", "", "anon_project");
-    if ($conn->connect_error) {
-        echo  "Connection failed";
-        exit;
-    }
-
     // 1. Get email from reset table
     $sql = "SELECT email, expire FROM reset WHERE token = ?";
     $stmt = $conn->prepare($sql);
@@ -30,19 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo  "DB query failed";
     exit;
 }
-    $stmt->bind_param("s", $token);
-    if (!$stmt->execute()) {
+    if (!$stmt->execute($token)) {
     echo  "DB execution failed";
     exit;
 }
-    $result = $stmt->get_result();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result->num_rows === 0) {
+    if (count($row) === 0) {
         echo  => "Invalid token";
         exit;
     }
 
-    $row = $result->fetch_assoc();
     $expire = strtotime($row['expire']);
     if ($expire < time()) {
         echo  "Token has expired";
@@ -50,18 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $email = $row['email'];
-
     // 2. Update password
     $hashedPass = password_hash($newPass, PASSWORD_DEFAULT);
     $update = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
-    $update->bind_param("ss", $hashedPass, $email);
 
-    if ($update->execute()) {
+    if ($update->execute([$hashedPass, $email])) {
         // 3. Delete used token
         $delete = $conn->prepare("DELETE FROM reset WHERE token = ?");
-        $delete->bind_param("s", $token);
-        $delete->execute();
-
+        $delete->execute($token);
         echo  "Password updated successfully";
     } else {
         echo  "Failed to update password";

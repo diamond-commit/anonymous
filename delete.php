@@ -26,14 +26,10 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("ii", $message_id, $user_id);
-
-if ($stmt->execute()) {
+if ($stmt->execute([$message_id, $user_id])) {
     echo json_encode(["status" => "success", "message" => "Message deleted", "redirect"=> "dashboard.php"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Delete failed"]);
+    echo json_encode(["status" => false, "message" => "Delete failed"]);
 }
-
-$stmt->close();
-$conn->close();
+$conn = null;
 ?>

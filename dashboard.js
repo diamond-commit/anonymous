@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (data.redirect) {
         window.location.href = data.redirect;
       } else {
-        console.log(data.message);
+        alert("Try deleting again")
       }
     } catch (error) {
       console.log(error);

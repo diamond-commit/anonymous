@@ -1,21 +1,18 @@
 <?php
-$servername = "db.pxxl.pro";
-$port = 14157;
-$username = "user_3f39a3d9";
-$password = "22082aff070e0f1cf90dfa023a38e4bb"; // your real password
-$dbname = "db_63978047";
+$host = 'localhost'; // or 127.0.0.1
+$db   = 'anon_project';
+$user = 'postgres';
+$pass = 'yingyang'; 
+$port = '5432'; 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-// Handle connection error as JSON
-if ($conn->connect_error) {
-    header('Content-Type: application/json');
-    echo json_encode([
-        "success" => false,
-        "message" => "Database connection failed",
-        "error" => $conn->connect_error
-    ]);
-    exit;
+try {
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
+    // Set error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Optional: set default fetch mode to associative array
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo json_encode(["success"=> false, 
+                      "message"=> " Error". $e->getMessage()]);
 }
 ?>

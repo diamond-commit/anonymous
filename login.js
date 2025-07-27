@@ -31,7 +31,7 @@
             }
         } catch (error) {
           loader.style.display = "none"
-        errorbox.textContent = data.message
+        errorbox.textContent = error
         errorbox.style.display = "block"
         }
      }

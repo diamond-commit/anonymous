@@ -1,5 +1,4 @@
 <?php 
-  include "dbjson.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,6 +6,7 @@ require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 require 'PHPMailer/Exception.php';
 
+   include "dbjson.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["success" => false, "message" => "Go to the login page"]);
@@ -27,14 +27,14 @@ if (!$stmt) {
     echo json_encode(["success" => false, "message" => "DB query failed"]);
     exit;
 }
-$stmt->bind_param("s", $email);
-if (!$stmt->execute()) {
+
+if (!$stmt->execute([$email])) {
     echo json_encode(["success" => false, "message" => "DB execution failed"]);
     exit;
 }
-$results = $stmt->get_result();
+$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($results->num_rows === 0) {
+if (!$results {
     echo json_encode(["success" => false, "message" => "User does not exist"]);
     exit;
 }
@@ -73,13 +73,13 @@ if (!$stmt1) {
     echo json_encode(["success" => false, "message" => "DB query failed"]);
     exit;
 }
-$stmt1->bind_param("sss", $email, $token, $expire);
-if (!$stmt1->execute()) {
+if (!$stmt1->execute([$email, $token, $expire])) {
     echo json_encode(["success" => false, "message" => "DB execution failed"]);
     exit;
 }
    try {
     // smtp settings 
+    $mail = new PHPMailer(true);
             $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
@@ -94,7 +94,7 @@ if (!$stmt1->execute()) {
 
          $mail->isHTML(true);
          $mail->Subject = "Reset your password";
-$resetLink = "http://localhost/anonymous/reset.php?token=$token";
+$resetLink = "https://anonymous.pxxl.click/reset.php?token=$token";
 
 $mail->Body = "
     <h2>Password Reset</h2>
@@ -118,7 +118,7 @@ $mail->Body = "
    } catch (\Throwable $th) {
     echo json_encode([
     "success" => false,
-    "message" => "Message could not be sent. Mailer Error : $mail->Errorinfo",
+    "message" => "Message could not be sent. Mailer Error : $mail->ErrorInfo",
 ]);
    }
 ?>
